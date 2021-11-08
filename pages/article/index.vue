@@ -1,35 +1,34 @@
 <template>
   <div>
-      hello nuxt
-      <h1>{{title}}</h1>
-      <nuxt-link to="/about">about</nuxt-link>
-       <Foo/>
+      asyncData数据显示article
+      <br>
+      <p>{{name}}</p>
+      <p>
+          {{title}}
+      </p>
   </div>
 </template>
 
 <script>
-import Foo from '@/components/Foo'
 import axios from 'axios'
 export default {
-    components:{
-        Foo,
-    },
-    data(){
-        return {
-            name:'hello'
-        }
-    },
+    name:'articlePa',
     async asyncData(){
         console.log('come in asyncData')
-        console.log(this)
         const res = await axios({
             url:'http://192.168.60.18:3001/data.json'
 
         })
+        console.log(res)
         return res.data
         
-    }
-
+    },
+    data(){
+        return {
+            name:'hellohellohello'
+        }
+    },
+    
 }
 </script>
 

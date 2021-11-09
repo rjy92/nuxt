@@ -1,35 +1,63 @@
 <template>
   <div>
-      hello nuxt
-      <h1>{{title}}</h1>
-      <nuxt-link to="/about">about</nuxt-link>
-       <Foo/>
+    <h1>{{ title }}</h1>
+    <nuxt-link to="/about">About</nuxt-link>
+    <br>
+    <foo :posts="posts" />
   </div>
 </template>
 
 <script>
-import Foo from '@/components/Foo'
 import axios from 'axios'
+import Foo from '@/components/Foo'
+
 export default {
-    components:{
-        Foo,
-    },
-    data(){
-        return {
-            name:'hello'
-        }
-    },
-    async asyncData(){
-        console.log('come in asyncData')
-        console.log(this)
-        const res = await axios({
-            url:'http://192.168.60.18:3001/data.json'
+  name: 'HomePage',
+  components: {
+    Foo
+  },
 
-        })
-        return res.data
-        
+  // 当你想要动态页面内容有利于 SEO 或者是提升首屏渲染速度的时候，就在 asyncData 中发请求拿数据
+  async asyncData () {
+    console.log('asyncData')
+    console.log(this)
+    const res = await axios({
+      method: 'GET',
+      url: 'http://localhost:3001/data.json'
+    })
+    return res.data
+  },
+
+  // 如果是非异步数据或者普通数据，则正常的初始化到 data 中即可
+  data () {
+    return {
+      foo: 'bar'
     }
-
+  },
+  beforeCreate(){
+      console.log('come in beforeCreate')
+  },
+  created(){
+      console.log('come in created')
+  },
+  beforeMount(){
+      console.log('come in beforeMount')
+  },
+  mounted(){
+    console.log('come in mounted')
+  },
+  beforeUpdate(){
+       console.log('come in beforeUpdate')
+  },
+  updated(){
+       console.log('come in updated')
+  },
+  beforeDestroy(){
+       console.log('come in beforeDestroy')
+  },
+  destroyed(){
+       console.log('come in destroyed')
+  }
 }
 </script>
 
